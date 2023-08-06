@@ -4,6 +4,7 @@ import os
 
 
 app = Flask(__name__)
+root='./myfiles'
 
 @app.route("/")
 def hello_world():
@@ -11,7 +12,7 @@ def hello_world():
 
 @app.route("/directory",methods=['GET'])
 def get_directory():
-      directory_list = os.listdir('.')
+      directory_list = os.listdir(root)
       return jsonify(directory_list)
 
 @app.route('/newdir',methods=['POST'])
@@ -21,7 +22,7 @@ def create_directory():
     if not directory_name :
         return jsonify({"error": "Directory name is required"}), 400
     try:
-        os.mkdir(directory_name)
+        os.mkdir(os.path.join(root,directory_name))
         return jsonify({"message": f"Directory '{directory_name}' created successfully"}), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -36,7 +37,7 @@ def create_file():
         return jsonify({"error": "File name is required"}), 400
 
     try:
-        with open(os.path.join(path,file_name), 'w') as f:
+        with open(os.path.join(root,path,file_name), 'w') as f:
             pass
         return jsonify({"message": f"File '{file_name}' created successfully"}), 201
     except Exception as e:
