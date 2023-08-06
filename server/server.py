@@ -25,11 +25,12 @@ def get_directory():
 @app.route('/newdir',methods=['POST'])
 def create_directory():
     data=request.json
-    directory_name = data.get('directory_name')
+    directory_name = data.get('dir_name') # json body : 'dir_name'
+    path = data.get('path') # json body : 'path'
     if not directory_name :
         return jsonify({"error": "Directory name is required"}), 400
     try:
-        os.mkdir(os.path.join(root,directory_name))
+        os.mkdir(os.path.join(root,path,directory_name))
         return jsonify({"message": f"Directory '{directory_name}' created successfully"}), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 500
