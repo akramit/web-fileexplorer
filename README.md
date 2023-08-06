@@ -1,4 +1,5 @@
 # README
+The following API lets you create a new directory, new file and view the entire directory tree structure.
 
 ## View Directory
 1. Do a GET request ```0.0.0.0:5432/directory```
