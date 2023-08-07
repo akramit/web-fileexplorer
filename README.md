@@ -8,6 +8,12 @@ The following API lets you create a new directory, new file and view the entire 
 4. Run ```npm start``` to start the app
 5. Verify the creation and deletion of files under directory ```server/myfiles```
 
+## Demo
+<img src="demo/file-explorer.png" width="300" height="300" alt="File Explorer" >
+<img src="demo/rename.png" width="300" height="300" alt="Rename a file">
+<img src="demo/hover-folder.png" width="300" height="300"  alt="Highlight folder on hover">
+<img src="demo/hover-file.png" width="300" height="300"  alt ="Highlight file on hover">
+
 ## View Directory
 1. Do a GET request ```0.0.0.0:5432/directory```
 2. Output :
@@ -46,3 +52,4 @@ The following API lets you create a new directory, new file and view the entire 
   "path":""
 }
 ```
+
