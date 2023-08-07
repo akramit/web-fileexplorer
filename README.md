@@ -1,6 +1,13 @@
 # README
 The following API lets you create a new directory, new file and view the entire directory tree structure.
 
+## Run the App
+1. Clone the directory
+2. Go to directory ```server``` and run ```python3 server.py``` to start the server
+3. Go to directory ```explorer-app```
+4. Run ```npm start``` to start the app
+5. Verify the creation and deletion of files under directory ```server/myfiles```
+
 ## View Directory
 1. Do a GET request ```0.0.0.0:5432/directory```
 2. Output :
