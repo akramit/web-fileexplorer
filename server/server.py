@@ -64,6 +64,8 @@ def delete_file():
     
     try :
         if type == 'folder':
+            if path.split('/')[-1]== 'root':
+                return jsonify({"error": "Root cannot be deleted."}), 400
             shutil.rmtree(os.path.join(root,path))
         elif type == 'file' :
             os.remove(os.path.join(root,path,file_name))
@@ -84,6 +86,8 @@ def rename():
     
     try :
         if type == 'folder':
+            if old_name == 'root':
+                return jsonify({"error": "Root cannot be modified."}), 400
             os.rename(os.path.join(root,path,old_name),os.path.join(root,path,new_name))
         elif type == 'file' :
             os.rename(os.path.join(root,path,old_name),os.path.join(root,path,new_name))
