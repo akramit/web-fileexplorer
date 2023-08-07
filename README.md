@@ -1,13 +1,14 @@
 # README
-The following API lets you create a new directory, new file and view the entire directory tree structure.
+A web based file explorer app that  lets you create a new directory, new file, rename a directory, rename a file, delete a directory, delete a file and view the entire directory tree structure.
 
 ## Run the App
 1. Clone the directory
-2. Run ```npm install``` to create node_modules
-3. Go to directory ```server``` and run ```python3 server.py``` to start the server
-4. Go to directory ```explorer-app```
-5. Run ```npm start``` to start the app
-6. Verify the creation and deletion of files under directory ```server/myfiles/root```
+3. Run ```npm install``` inside the directory to create node_modules
+4. Go to directory ```server``` and run ```python3 server.py``` to start the server
+5. Go to directory ```explorer-app```
+6. Run ```npm install``` to create node_modules.
+7. Run ```npm start``` to start the app
+8. Verify the creation and deletion of files under directory ```server/myfiles/root```
 
 ## Demo
 <img src="demo/file-explorer.png" width="300" height="300" alt="File Explorer" > <img src="demo/rename.png" width="300" height="300" alt="Rename a file">
