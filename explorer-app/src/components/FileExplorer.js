@@ -1,55 +1,58 @@
-import React, { useState } from 'react';
-import TreeNode from './TreeNode';
-
+import React, { useEffect, useState } from "react"
+import TreeNode from "./TreeNode"
+import "./fileExplorer.css"
 
 const FileExplorer = () => {
-  // Define the initial file system state using useState
-  const [fileSystem, setFileSystem] = useState({
-    name: 'root',
-    type: 'folder',
-    children: [
-      {
-        name: 'folder1',
-        type: 'folder',
-        children: [
-          {
-            name: 'subfolder1',
-            type: 'folder',
-            children: [
-              { name: 'file1.txt', type: 'file' },
-              { name: 'file2.txt', type: 'file' },
-            ],
-          },
-        ],
-      },
-      { name: 'file3.txt', type: 'file' },
-      { name: 'file4.txt', type: 'file' },
-    ],
-  });
+	const [fileSystem, setFileSystem] = useState(null)
 
-  // Function to update the file system when a new folder is added or renamed
-  const updateFileSystem = (oldName, newName, type = 'folder') => {
-    setFileSystem((prevFileSystem) => {
-      const updateTree = (node) => {
-        if (node.name === oldName) {
-          return { ...node, name: newName, type };
-        }
-        if (node.children) {
-          return { ...node, children: node.children.map(updateTree) };
-        }
-        return node;
-      };
+	useEffect(() => {
+		getDirectory()
+	}, [])
 
-      return updateTree(prevFileSystem);
-    });
-  };
+	const getDirectory = () => {
+		fetch("http://127.0.0.1:5432/directory")
+			.then(res => res.json())
+			.then(data => {
+				setFileSystem(data)
+			})
+	}
 
-  return (
-    <div>
-      <h1>File Explorer</h1>
-      <TreeNode node={fileSystem} level={0} updateFileSystem={updateFileSystem} />
-    </div>
-  );
-};
+	const handleAddFolder = async () => {
+		const folderName = prompt("Enter the folder name:")
+		if (folderName) {
+			const updatedPath =   "./"
+			const response = await fetch("http://127.0.0.1:5432/newdir", {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ dir_name: folderName, path: updatedPath }),
+			})
+			console.log({ folderName, response })
+			getDirectory()
+		}
+	}
 
-export default FileExplorer;
+	return (
+		<div className='file-explorer'>
+			<h1>File Explorer</h1>
+			<button onClick={handleAddFolder} > + New Folder</button>
+			{fileSystem &&
+				fileSystem.map(file => {
+					return (
+						<TreeNode
+							key={file.name}
+							node={file}
+							level={0}
+							filePath={file.name}
+							getDirectory={getDirectory}
+						/>
+					)
+				})}
+			
+		</div>
+	)
+}
+
+export default FileExplorer

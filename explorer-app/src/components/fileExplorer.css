@@ -1,0 +1,8 @@
+.file-explorer {
+	border: 1px solid rgb(167, 167, 167);
+	width: fit-content;
+	min-width: 300px;
+	padding: 1rem;
+	font-size: 18px;
+	margin-top: 50px;
+}
